@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>To-Do App</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/styles.css}">
+  </head>
+  <body>
+    <div class="todo-container" th:fragment="todo-list">
+      <h1>To-Do List</h1>
+      <form id="new-todo-form" th:action="@{/addTask}" th:object="${task}" method="POST">
+        <input type="text" th:field="*{taskText}" id="new-todo-text" placeholder="New task">
+        <button type="submit">Add</button>
+      </form>
+      <table>
+        <thead>
+          <tr>
+            <th>Task</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody id="todo-list" th:each="task : ${tasks}">
+          <tr>
+            <td th:text="${task.taskText}"></td>
+            <td>
+              <a th:href="@{/editTask(taskId=${task.taskId})}">Edit</a>
+              <a th:href="@{/deleteTask(taskId=${task.taskId})}">Delete</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <script th:src="@{/script.js}"></script>
+  </body>
+</html>
+
